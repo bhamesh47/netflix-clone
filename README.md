@@ -1,118 +1,216 @@
-Below is a **professional, step-by-step `README.md`** you can **directly copy** for your **Netflix Clone** project.
-This is **ATS + portfolio ready** and perfect for GitHub ⭐
+Below is a **clean, step-by-step `README.md`** you can **directly use in GitHub** that explains **AWS EC2 instance creation + deploying your Netflix Clone website**.
+
+This is **resume + portfolio ready** and written in **simple, professional language**.
 
 ---
 
-## 📄 `README.md` — Netflix Clone
+## 📄 `README.md` — AWS EC2 Website Deployment (Step-by-Step)
 
-```markdown
-# 🎬 Netflix Clone (HTML & CSS)
+````markdown
+# ☁️ AWS EC2 Website Deployment (Netflix Clone)
 
-A responsive **Netflix landing page clone** built using **HTML and CSS**.  
-This project focuses on clean UI design, layout structure, and responsive styling.
-
----
-
-## 🔗 Live Preview
-> Coming Soon (GitHub Pages)
+This project demonstrates **how to create an AWS EC2 instance** and **deploy a static Netflix Clone website** using **Apache Web Server** on **Ubuntu Linux**.
 
 ---
 
-## 📌 Features
-- Modern Netflix-style UI
-- Responsive layout
-- Fixed navigation bar
-- Movie rows with hover effects
-- Clean and beginner-friendly code
+## 📌 Objective
+- Launch an EC2 instance on AWS
+- Configure security groups
+- Install Apache web server
+- Deploy a static website
+- Access the website using a public IP
 
 ---
 
 ## 🛠️ Tech Stack
-- HTML5
-- CSS3 (Flexbox)
+- AWS EC2
+- Ubuntu 22.04 LTS
+- Apache2 Web Server
+- HTML & CSS
 - Git & GitHub
+- Linux (Ubuntu)
 
 ---
 
-## 📂 Project Structure
-```
+## 🧾 Prerequisites
+- AWS Account
+- Basic Linux commands
+- GitHub account
+- Internet connection
 
-netflix-clone/
-│
-├── index.html
-└── README.md
+---
 
+## 🚀 Step-by-Step EC2 Instance Creation
+
+### 1️⃣ Login to AWS Console
+- Go to https://aws.amazon.com
+- Sign in to **AWS Management Console**
+
+---
+
+### 2️⃣ Launch EC2 Instance
+1. Open **EC2 Dashboard**
+2. Click **Launch Instance**
+3. Instance Name: `Netflix-Clone-Server`
+
+---
+
+### 3️⃣ Choose AMI
+- Select **Ubuntu Server 22.04 LTS (Free Tier Eligible)**
+
+---
+
+### 4️⃣ Choose Instance Type
+- Select `t2.micro` (Free Tier)
+- Click **Next**
+
+---
+
+### 5️⃣ Create Key Pair
+- Click **Create new key pair**
+- Name: `netflix-key`
+- Type: RSA
+- Format: `.pem`
+- Download and save securely
+
+---
+
+### 6️⃣ Configure Network (Security Group)
+Allow the following inbound rules:
+
+| Type | Port | Source |
+|----|----|----|
+| SSH | 22 | My IP |
+| HTTP | 80 | Anywhere |
+| HTTPS | 443 | Anywhere |
+
+---
+
+### 7️⃣ Launch Instance
+- Click **Launch Instance**
+- Wait until instance state becomes **Running**
+
+---
+
+## 🔐 Connect to EC2 Instance
+
+### Linux / Mac
+```bash
+chmod 400 netflix-key.pem
+ssh -i netflix-key.pem ubuntu@<EC2-PUBLIC-IP>
 ````
 
+### Windows (PuTTY)
+
+* Convert `.pem` to `.ppk`
+* Connect using Public IP
+
 ---
 
-## 🚀 Step-by-Step Setup (Local Machine)
+## ⚙️ Server Setup on EC2
 
-### 1️⃣ Clone the Repository
+### 1️⃣ Update System
+
 ```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+---
+
+### 2️⃣ Install Apache Web Server
+
+```bash
+sudo apt install apache2 -y
+```
+
+---
+
+### 3️⃣ Start & Enable Apache
+
+```bash
+sudo systemctl start apache2
+sudo systemctl enable apache2
+```
+
+---
+
+### 4️⃣ Verify Apache
+
+Open browser:
+
+```
+http://<EC2-PUBLIC-IP>
+```
+
+You should see **Apache2 Ubuntu Default Page**.
+
+---
+
+## 📂 Deploy Netflix Clone Website
+
+### 1️⃣ Go to Web Directory
+
+```bash
+cd /var/www/html
+```
+
+---
+
+### 2️⃣ Remove Default Page
+
+```bash
+sudo rm index.html
+```
+
+---
+
+### 3️⃣ Upload Website Files
+
+#### Option 1: Using GitHub
+
+```bash
+sudo apt install git -y
 git clone https://github.com/bhamesh47/netflix-clone.git
-````
-
-### 2️⃣ Navigate to Project Folder
-
-```bash
-cd netflix-clone
+sudo cp -r netflix-clone/* /var/www/html/
 ```
 
-### 3️⃣ Open in Browser
+#### Option 2: Manual Upload
 
-```bash
-xdg-open index.html
-```
-
-OR
-Double-click `index.html`
+* Use SCP / FileZilla
 
 ---
 
-## 🌐 Deploy on GitHub Pages (Step-by-Step)
+### 4️⃣ Restart Apache
 
-### 1️⃣ Go to Repository Settings
-
-* Open GitHub repository
-* Click **Settings**
-
-### 2️⃣ Enable Pages
-
-* Go to **Pages**
-* Source: `main`
-* Folder: `/root`
-* Click **Save**
-
-### 3️⃣ Access Live Site
-
-After 1–2 minutes:
-
-```
-https://bhamesh47.github.io/netflix-clone/
+```bash
+sudo systemctl restart apache2
 ```
 
 ---
 
-## 📸 Screenshots
+## 🌐 Access Website
 
-> Add screenshots here later
+```
+http://<EC2-PUBLIC-IP>
+```
+
+🎉 Netflix Clone website is live on AWS EC2!
 
 ---
 
 ## 📈 Learning Outcomes
 
-* HTML page structure
-* CSS Flexbox layout
-* Responsive UI design
-* Git & GitHub workflow
-* Frontend project deployment
+* AWS EC2 instance management
+* Linux server setup
+* Apache web server configuration
+* Website deployment on cloud
+* GitHub integration
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project is created **for educational purposes only**.
+This project is for **educational purposes only**.
 Netflix is a registered trademark of Netflix, Inc.
 
 ---
@@ -120,15 +218,17 @@ Netflix is a registered trademark of Netflix, Inc.
 ## 👨‍💻 Author
 
 **Bhamesh Megalamani**
-
-* GitHub: [https://github.com/bhamesh47](https://github.com/bhamesh47)
+GitHub: [https://github.com/bhamesh47](https://github.com/bhamesh47)
 
 ---
 
 ## ⭐ Support
 
-If you like this project, please ⭐ the repository!
+If you found this useful, please ⭐ the repository!
 
 ````
+
+---
+
 
 
